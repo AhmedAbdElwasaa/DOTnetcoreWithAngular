@@ -19,6 +19,15 @@ namespace DOTnetcore
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+            .ConfigureAppConfiguration(SetupConfiguration)
                 .UseStartup<Startup>();
+
+        private static void SetupConfiguration(WebHostBuilderContext ctx, IConfigurationBuilder builder)
+        {
+            // removingthe default configuration options
+            builder.Sources.Clear();
+
+
+        }
     }
 }
