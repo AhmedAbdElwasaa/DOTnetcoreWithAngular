@@ -3,25 +3,35 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using DOTnetcoreAPI.Data;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace DOTnetcore
+namespace DOTnetcoreAPI
 {
     public class Program
     {
         public static void Main(string[] args)
-        {
-
+        { 
             var host = CreateWebHostBuilder(args).Build();
-            host.Run();
+
+            RunSeading(host);
+               host.Run();
         }
 
-    
+        private static void RunSeading(IWebHost host)
+        {
+            var scopeFactory = host.Services.GetService<IServiceScopeFactory>();
+            using (var scope = scopeFactory.CreateScope())
+            {
+                var seeder = scope.ServiceProvider.GetService<DOTnetSeader>();
 
+                seeder.Sead();
+            }
+        }
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
             .ConfigureAppConfiguration(SetupConfiguration)
@@ -29,11 +39,11 @@ namespace DOTnetcore
 
         private static void SetupConfiguration(WebHostBuilderContext ctx, IConfigurationBuilder builder)
         {
-            // removing the default configuration options
             builder.Sources.Clear();
-
-            builder.AddJsonFile("config.json",false,true)
+            builder.AddJsonFile("config.json", false, true)
                 .AddEnvironmentVariables();
+        
+                
         }
     }
 }

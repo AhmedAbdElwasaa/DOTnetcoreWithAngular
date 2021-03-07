@@ -11,10 +11,12 @@ namespace DOTnetcore.Controllers
     public class AppController:Controller
     {
         private readonly IMailService _mailService;
+       
 
         public AppController(IMailService mailService)
         {
             _mailService = mailService;
+      
         }
         public IActionResult Index()
         {
@@ -50,6 +52,17 @@ namespace DOTnetcore.Controllers
         public IActionResult About()
         {
            
+            return View();
+        }
+
+
+        public IActionResult Shop()
+        {
+            //var result = _context.Products
+            //    .OrderBy(c=> c.Category)
+            //    .ToList();
+
+         
             return View();
         }
     }

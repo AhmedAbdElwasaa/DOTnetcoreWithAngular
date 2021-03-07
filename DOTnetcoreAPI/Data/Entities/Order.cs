@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DOTnetcore.Data.Entities
+namespace DOTnetcoreAPI.Data.Entities
 {
   public class Order
   {

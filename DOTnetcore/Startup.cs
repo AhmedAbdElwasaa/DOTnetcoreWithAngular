@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DOTnetcore.Data;
 using DOTnetcore.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,11 +24,7 @@ namespace DOTnetcore
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DOTnetContext>( cfg =>
-                {
-                    cfg.UseSqlServer(_configuration.GetConnectionString("DOTnetConnectionString"));
-                }
-                );
+          
             services.AddTransient<IMailService, NullMailService>();
             services.AddMvc();
         }

@@ -1,4 +1,4 @@
-﻿namespace DOTnetcore.Data.Entities
+﻿namespace DOTnetcoreAPI.Data.Entities
 {
   public class OrderItem
   {
