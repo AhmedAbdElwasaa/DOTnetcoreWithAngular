@@ -34,6 +34,7 @@ namespace DOTnetcore
 
             builder.AddJsonFile("config.json",false,true)
                 .AddEnvironmentVariables();
+            
         }
     }
 }

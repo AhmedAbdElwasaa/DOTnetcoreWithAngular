@@ -8,6 +8,11 @@ namespace DOTnetcoreAPI.Data
     {
         List<Product> GetProducts();
         List<Product> GetProductsByCategory(string category);
-        List<Order> GetAllOrders();
+
+        List<Order> GetAllOrders(bool includeItems);
+        Order GetOrderById(int id);
+        void AddEntity(object model);
+
+        bool SaveAll();
     }
 }

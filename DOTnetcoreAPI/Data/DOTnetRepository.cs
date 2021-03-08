@@ -19,21 +19,64 @@ namespace DOTnetcoreAPI.Data
             _logger = logger;
         }
 
-        public List<Order> GetAllOrders()
+        public void AddEntity(object model)
+        {
+            try
+            {
+                _logger.LogInformation("Add Entity is Called ...");
+
+                _context.Add(model);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"failed to Add Entity: {ex.Message}");
+            }
+        }
+
+        public List<Order> GetAllOrders(bool includeItems)
         {
             try
             {
             _logger.LogInformation("Get all orders is Called ...");
-            return _context.Orders
-                    .Include(o => o.Items)
-                    .ThenInclude(c => c.Product)
-                    .ToList();
+                if(includeItems)
+                {
+                    return _context.Orders
+                                      .Include(o => o.Items)
+                                      .ThenInclude(c => c.Product)
+                                      .ToList();
+                }
+                else
+                {
+                    return _context.Orders               
+                  .ToList();
+                }
+          
             }
             catch (Exception ex)
             {
                 _logger.LogError($"failed to get all orders: {ex.Message}");
                 return null;
                 
+            }
+        }
+
+        public Order GetOrderById(int id)
+        {
+            try
+            {
+                _logger.LogInformation("Get order by id is called ...");
+                return _context.Orders
+                    .Include(i => i.Items)
+                    .ThenInclude(p => p.Product)
+                    .OrderBy(a => a.Id)
+                    .Where(o => o.Id == id).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError($"Failed to get order by Id: {id} ,{ex.Message}");
+                return null;
             }
         }
 
